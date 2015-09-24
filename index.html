@@ -28,8 +28,6 @@
 
 	$('#caret').click(function (e){
 			
-		console.log(parentNode);
-
 		if($(parentNode).parents().is('.note-editable') || $(parentNode).is('.note-editable') ){
         	var span = document.createElement('span');	    
 	        span.setAttribute('style','font-style:italic');
