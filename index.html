@@ -1,9 +1,11 @@
 <link rel="stylesheet" href="bs.css">
 <link rel="stylesheet" href="sn.css">
 
-<textarea name="" id="sn" cols="30" rows="10"></textarea>
-
-<button>get content</button>
+<div class="container">
+	<textarea name="" id="sn" cols="30" rows="10"></textarea>
+	
+	<button id="caret">First Name, Caret</button>
+</div>
 
 <script src="jquery.js"></script>
 <script src="bs.js"></script>
@@ -15,20 +17,33 @@
 	var lastCaretPos = 0;
 	var parentNode;
 	var range;
+	var selection;
 
 	$('.note-editable').on('keyup mouseup',function (e){
-		var selection = window.getSelection();
+
+		selection = window.getSelection();
 		range = selection.getRangeAt(0);
+		parentNode = range.commonAncestorContainer.parentNode;
+
+		console.log(range);
 	});
 
-	$('button').click(function (e){
-		
+	$('#caret').click(function (e){
+			
+		console.log(parentNode);
+
 		if($(parentNode).parents().is('.note-editable') || $(parentNode).is('.note-editable') ){
-			// range.deleteContents();        
         	var span = document.createElement('span');	    
 	        span.setAttribute('style','font-style:italic');
 	    	span.innerHTML="${firstName}";
+			
+			range.deleteContents();        
 	        range.insertNode(span);  
+	        //cursor at the last with this
+	        range.collapse(false);
+	        selection.removeAllRanges();
+			selection.addRange(range);
+
 		}else{
 			return;
 		}
