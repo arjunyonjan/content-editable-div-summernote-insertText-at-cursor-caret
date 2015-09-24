@@ -1,0 +1,35 @@
+<link rel="stylesheet" href="bs.css">
+<link rel="stylesheet" href="sn.css">
+
+<textarea name="" id="sn" cols="30" rows="10"></textarea>
+
+
+<button>get content</button>
+
+<script src="jquery.js"></script>
+<script src="bs.js"></script>
+<script src="sn.js"></script>
+
+<script src="caret.js"></script>
+
+<script>
+
+
+	$('#sn').summernote();
+	$('button').click(function (e){
+		var selection = window.getSelection();
+		var range = selection.getRangeAt(0);
+		var parentNode = range.commonAncestorContainer.parentNode;
+		if($(parentNode).parents().is('.note-editable') || $(parentNode).is('.note-editable') ){
+			range.deleteContents();   
+        	var span = document.createElement('span');
+	        span.setAttribute('style','font-style:italic');
+	        span.innerHTML="${firstName}";
+	        range.insertNode(span);  
+		}else{
+			return;
+		}
+	});
+
+</script>
+
