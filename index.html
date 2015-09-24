@@ -11,17 +11,23 @@
 
 <script>
 
-
 	$('#sn').summernote();
-	$('button').click(function (e){
+	var lastCaretPos = 0;
+	var parentNode;
+	var range;
+
+	$('.note-editable').on('keyup mouseup',function (e){
 		var selection = window.getSelection();
-		var range = selection.getRangeAt(0);
-		var parentNode = range.commonAncestorContainer.parentNode;
+		range = selection.getRangeAt(0);
+	});
+
+	$('button').click(function (e){
+		
 		if($(parentNode).parents().is('.note-editable') || $(parentNode).is('.note-editable') ){
-			range.deleteContents();   
-        	var span = document.createElement('span');
+			// range.deleteContents();        
+        	var span = document.createElement('span');	    
 	        span.setAttribute('style','font-style:italic');
-	        span.innerHTML="${firstName}";
+	    	span.innerHTML="${firstName}";
 	        range.insertNode(span);  
 		}else{
 			return;
